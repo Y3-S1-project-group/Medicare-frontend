@@ -3,6 +3,7 @@ import axios from 'axios';
 import "../../Styles/display.css";
 import UpdateStaffMember from '../UpdateStaffMember/UpdateStaffMember'; // Update staff member component
 import DeleteStaffMember from '../DeleteStaffMember/DeleteStaffMember'; // Delete staff member component
+import AddStaffMember from '../AddStaffMember/AddStaffMember';
 
 function DisplayStaffMembers() {
     const [staffMembers, setStaffMembers] = useState([]);
@@ -38,20 +39,17 @@ function DisplayStaffMembers() {
     }
 
     return (
-      <div>
-        <div className="ml-64 justify-center">
+      <div className="container mx-auto px-4 py-8">
+        {/* Wrapper for heading and table */}
+        <div className="rounded-box" style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
           <h2>
-            <center>Staff Members</center>
+            Staff Members
           </h2>
         </div>
-
+        
         {/* Search bar */}
-        <div className="flex justify-center">
-          <form
-            className="flex items-center"
-            onSubmit={searchHandler}
-            style={{ marginTop: "25px" }}
-          >
+        <div className="flex justify-left" style={{ marginTop: "25px" }}>
+          <form className="flex items-center" onSubmit={searchHandler}>
             <input
               type="search"
               name="q"
@@ -66,52 +64,42 @@ function DisplayStaffMembers() {
             <button className="btn" type="submit">Search</button>
           </form>
         </div>
-
+        <br/>
+          <AddStaffMember />
+          <br/>
+          <h1>Recent Medical Staff</h1>
+        <br/>
         {/* Table to display all staff members */}
-        <div className="container mx-4 px-4 py-8">
-          <table className="w-full table-auto">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Gender</th>
-                <th>Role</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Date of Birth</th>
-                <th>NIC</th>
-                <th>Password</th> 
-                <th>Update</th>
-                <th>Delete</th>
+        <table className="w-full table-auto mt-10">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>ID</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {staffMembers.map((member, i) => (
+              <tr key={i}>
+                <td>{member.FirstName}</td> {/* Display First Name */}
+                <td>{member.LastName}</td> {/* Display Last Name */}
+                <td>{member.ID}</td> {/* Display Staff ID */}
+                <td>{member.Role}</td> {/* Display Role */}
+                <td>{member.Email}</td> {/* Display Email */}
+                <td>
+                  <UpdateStaffMember staffId={member.ID} /> {/* Update button */}
+                </td>
+                <td>
+                  <DeleteStaffMember staffId={member.ID} /> {/* Delete button */}
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {staffMembers.map((member, i) => (
-                <tr key={i}>
-                  <td>{member.ID}</td> {/* Display Staff ID */}
-                  <td>{member.FirstName}</td> {/* Display First Name */}
-                  <td>{member.LastName}</td> {/* Display Last Name */}
-                  <td>{member.Gender}</td> {/* Display Gender */}
-                  <td>{member.Role}</td> {/* Display Role */}
-                  <td>{member.PhoneNumber}</td> {/* Display Phone Number */}
-                  <td>{member.Email}</td> {/* Display Email */}
-                  <td>{member.Address}</td> {/* Display Address */}
-                  <td>{new Date(member.DOB).toLocaleDateString()}</td> {/* Display Date of Birth */}
-                  <td>{member.NIC}</td> {/* Display National ID */}
-                  <td>{member.Password}</td> {/* Display Password */}
-                  <td>
-                    <UpdateStaffMember staffId={member.ID} /> {/* Update button */}
-                  </td>
-                  <td>
-                    <DeleteStaffMember staffId={member.ID} /> {/* Delete button */}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
 }

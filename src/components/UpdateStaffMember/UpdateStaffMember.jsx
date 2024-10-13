@@ -145,7 +145,7 @@ const UpdateStaffMember = ({ staffId }) => {
   return (
     <div>
       <button className="btn" onClick={handleShowModal}>
-        Update Staff Member
+        Update Member
       </button>
 
       {/* Modal */}
@@ -159,7 +159,8 @@ const UpdateStaffMember = ({ staffId }) => {
           </div>
           <div className="relative bg-white p-8 rounded-lg shadow-xl max-w-xl w-full">
             <button
-              className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700"
+              className="bg-white absolute top-0 rounded right-0 pt-8 pl-8 pr-2 pb-2 btn"
+
               onClick={handleCloseModal}
             >
               <svg
@@ -179,7 +180,8 @@ const UpdateStaffMember = ({ staffId }) => {
             </button>
             {/* Form */}
             <div className="form-container">
-              <h2>
+              <br/>
+              <h2 className="rounded-box">
                 <center>Update Staff Member</center>
               </h2>
               <form onSubmit={handleSubmit} className="form-table">
@@ -375,7 +377,7 @@ const UpdateStaffMember = ({ staffId }) => {
                   </tbody>
                 </table>
                 <div className="flex justify-center mt-4">
-                  <button type="submit" className="btn-submit">
+                  <button type="submit" className="btn">
                     Update Staff Member
                   </button>
                 </div>
