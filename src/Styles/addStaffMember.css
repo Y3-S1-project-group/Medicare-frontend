@@ -1,0 +1,143 @@
+/* addStaffMember.css */
+
+/* Set the light blue background for the entire page */
+body {
+    background-color: #b1ffff; /* Light blue color */
+}
+
+/* Specific styles for the modal content */
+.modal-content {
+    background-color: white; /* Ensure the modal itself is white */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+}
+
+/* Input field styling */
+.form-row input,
+.form-row select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #010101;
+    background-color: white; /* White background for input fields */
+}
+
+/* Other existing styles remain unchanged */
+.bg-customGreen {
+    background-color: #0a6f0d;
+}
+
+.bg-customGreen:hover {
+    background-color: #0c8f10;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.add-staff-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row input[type="date"] {
+    flex: 1;
+    padding: 8px;
+}
+
+.file-input {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.file-input label {
+    margin-bottom: 5px;
+    font-size: 20px;
+    color: black;
+    font-style: bold;
+}
+
+.file-input input[type="file"] {
+    font-size: 20px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cancel-btn,
+.register-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-btn {
+    background-color: #00ffff;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.register-btn {
+    background-color:  #00ffff;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+.register-btn:hover {
+    background-color: #5c9be4;
+}
+.cancel-btn:hover {
+    background-color: #5c9be4;
+}
+
+/* Placeholder styling */
+::placeholder {
+    color: black;
+    font-size: 20px;
+}
+
+/* Focus styles */
+.form-row input:focus,
+.form-row select:focus {
+    outline: none;
+    border-color: #00ffff;
+    box-shadow: 0 0 5px black;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-row input,
+    .form-row select {
+        width: 100%;
+    }
+}
+

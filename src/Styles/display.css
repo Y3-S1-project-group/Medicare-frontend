@@ -1,57 +1,127 @@
 /* display.css */
 
 /* .container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
+  max-width: 800px !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
 } */
-
-h2 {
-  font-size: 30px;
-  margin-bottom: 20px;
+body{
+  color: black;
 }
+h2 {
+  font-size: 40px !important;
+  margin-bottom: 20px !important;
+  text-align: left;
+  color: white;
+}
+
 h1 {
-  font-size: 25px;
-  margin-bottom: 20px;
+  font-size: 25px !important;
+  margin-bottom: 20px !important;
+  text-align: left;
 }
 table {
-  width: 100%;
-  border-collapse: collapse;
+  width: 100% !important;
+  border-collapse: collapse !important;
+  
 }
 
 th, td {
-  border: 1px solid #ddd;
-  font-size: 16px;
-  padding: 8px;
-  text-align: left;
+  border: 1px solid #ddd !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+  text-align: left !important;
+  background-color: white !important;
 }
 
 th {
-  background-color: #4bec4b;
+  background-color: #3B82F6 !important;
 }
-td.data{
-  font-size: 11px;
+td.data {
+  font-size: 11px !important;
+  background-color: white !important;
 }
 
 button.btn {
-  padding: 8px 16px;
-  background-color: #0a6f0d;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 14px;
+  float: right !important;
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 8px 16px !important;
+  background: linear-gradient(to right, #1D4ED8, #3B82F6);
+  color: black !important;
+  border: none !important;
+  cursor: pointer !important;
+  border-radius: 20px !important;
+  font-size: 18px !important;
 }
 
+
+
 button.btn:hover {
-  background-color: #4bec4b;
+  background-color: #00ffff !important;
 }
 .bg-customGreen {
-  background-color: #0a6f0d;
+  background-color: #0a6f0d !important;
 }
 
 .bg-customGreen:hover {
-  background-color: #23B103; /* Optional hover color */
+  background-color: #23B103 !important; /* Optional hover color */
 }
-::placeholder{
-  font-size: 11px;
+::placeholder {
+  font-size: 11px !important;
 }
+input{
+  background-color: white;
+}
+
+
+
+.circle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  border: 2.5px solid black !important; /* Border color */
+  font-size: 18px !important; /* Adjust size of the plus */
+  color: black !important; /* Adjust color of the plus */
+  margin-left: 10px !important; /* Adjust spacing as needed */
+  box-sizing: border-box !important; /* Ensures the border is included in size */
+}
+
+.rounded-box {
+  background: linear-gradient(to right, #1D4ED8, #3B82F6); /* Gradient from lighter to darker blue */
+  border-radius: 15px; /* Rounded corners */
+  padding: 20px; /* Space inside the box */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  width: 100%; /* Ensure it takes the full width of the container */
+  max-width: 1200px; /* Optional: limit max width */
+  margin: 0 auto; /* Center the box */
+}
+
+
+
+
+/* Styling for the dropdown (select) */
+select {
+  padding: 8px 12px !important; /* Add padding for a better look */
+  font-size: 16px !important; /* Match font size with table cells */
+  border: 1px solid #ddd !important; /* Border similar to table cells */
+  border-radius: 5px !important; /* Rounded corners */
+  background-color: white !important; /* White background */
+  color: black !important; /* Text color */
+  appearance: none; /* Remove default arrow */
+  background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 10 10"%3E%3Cpolygon points="0,0 10,0 5,5" fill="%23black"/%3E%3C/svg%3E'); /* Custom arrow */
+  background-repeat: no-repeat; /* Prevent repeating the background */
+  background-position: right 10px; /* Position the custom arrow */
+  background-size: 10px; /* Size of the custom arrow */
+}
+
+select:focus {
+  border-color: #5c9be4 !important; /* Change border color on focus */
+  outline: none; /* Remove outline */
+}
+
