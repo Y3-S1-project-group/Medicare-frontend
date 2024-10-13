@@ -55,7 +55,7 @@ const DeleteStaffMember = ({ staffId }) => {
             <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
           </div>
           <div className="relative bg-white p-8 rounded-lg shadow-xl max-w-xl w-full">
-            <h2 className="text-lg font-semibold mb-4">
+            <h2 className="rounded-box">
               Are you sure you want to delete this staff member?
             </h2>
             <div className="flex justify-end">

@@ -4,7 +4,7 @@ import './App.css';
 
 //Staff Management
 import AdminStaffMember from './pages/AdminStaffMember/AdminStaffMember';
-
+import ClientStaffMembers from './pages/ClientStaffMembers/ClientStaffMembers';
 function App() {
   
   return (
@@ -12,7 +12,7 @@ function App() {
       <main>
         <Routes>
         {/*Staff Management*/}
-        {/*<Route path="/StaffMember" name="StaffMember" element={<ClientInventory/>} />*/}
+        <Route path="/ClientStaffMembers" name="StaffMember" element={<ClientStaffMembers/>} />
          <Route path="/adminStaffMember" name="adminStaffMember" element={<AdminStaffMember/>}/>
 
         </Routes>
