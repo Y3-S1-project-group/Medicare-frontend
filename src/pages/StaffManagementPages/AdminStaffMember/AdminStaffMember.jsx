@@ -1,7 +1,7 @@
 import React from 'react'
 
-import DisplayStaffMembers from '../../components/DisplayStaffMember/DisplayStaffMembers';
-import SideNavBar from '../../components/SideNavBar/SideNavBar';
+import DisplayStaffMembers from '../../../components/AdminStaffManagementcomponents/DisplayStaffMember/DisplayStaffMembers';
+import SideNavBar from '../../../components/SideNavBar/SideNavBar';
 
 const AdminStaffMember = () => {
   return (

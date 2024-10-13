@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import swal from "sweetalert";
 import axios from "axios";
-import "../../Styles/display.css";
+import "../../../Styles/StaffMemberCSS/display.css";
 
 const UpdateStaffMember = ({ staffId }) => {
   const [ID, setID] = useState("");

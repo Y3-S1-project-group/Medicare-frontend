@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "../../Styles/display.css";
-import UpdateStaffMember from '../UpdateStaffMember/UpdateStaffMember'; // Update staff member component
-import DeleteStaffMember from '../DeleteStaffMember/DeleteStaffMember'; // Delete staff member component
-import AddStaffMember from '../AddStaffMember/AddStaffMember';
+import "../../../Styles/StaffMemberCSS/display.css";
+import AddStaffMember from '../../AdminStaffManagementcomponents/AddStaffMember/AddStaffMember';
 
 function ClientDisplayStaffMembers() {
     const [staffMembers, setStaffMembers] = useState([]);

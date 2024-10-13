@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import "../../Styles/display.css";
+import "../../../Styles/StaffMemberCSS/display.css";
 import UpdateStaffMember from '../UpdateStaffMember/UpdateStaffMember'; // Update staff member component
 import DeleteStaffMember from '../DeleteStaffMember/DeleteStaffMember'; // Delete staff member component
 import AddStaffMember from '../AddStaffMember/AddStaffMember';
@@ -90,10 +90,10 @@ function DisplayStaffMembers() {
                 <td>{member.ID}</td> {/* Display Staff ID */}
                 <td>{member.Role}</td> {/* Display Role */}
                 <td>{member.Email}</td> {/* Display Email */}
-                <td>
+                <td className='aling-center'>
                   <UpdateStaffMember staffId={member.ID} /> {/* Update button */}
                 </td>
-                <td>
+                <td className='aling-center'>
                   <DeleteStaffMember staffId={member.ID} /> {/* Delete button */}
                 </td>
               </tr>

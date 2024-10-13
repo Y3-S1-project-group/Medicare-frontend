@@ -1,6 +1,6 @@
 import React from 'react'
-import ClientDisplayStaffMembers from '../../components/ClientDisplayStaffMembers/ClientDisplayStaffMembers'
-import SideNavBar from '../../components/SideNavBar/SideNavBar';
+import ClientDisplayStaffMembers from '../../../components/ClientStaffManagementComponents/ClientDisplayStaffMembers/ClientDisplayStaffMembers'
+import SideNavBar from '../../../components/SideNavBar/SideNavBar';
 
 const ClientStaffMembers = () => {
   return (
