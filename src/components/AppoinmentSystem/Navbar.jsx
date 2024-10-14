@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Home, Users, Clipboard, Calendar, FileText, Grid } from 'lucide-react';
 
 const Navbar = () => {
+  //paths
   const navItems = [
     { name: 'Home', icon: Home, path: '/' },
     { name: 'Registration', icon: Users, path: '/' },
@@ -16,6 +17,8 @@ const Navbar = () => {
       <div className="p-4">
         <Grid size={24} className="mb-2 text-white" />
       </div>
+
+      {/* Navigations */}
       <nav>
         <ul className="space-y-2 py-4">
           {navItems.map((item) => (
@@ -28,9 +31,11 @@ const Navbar = () => {
           ))}
         </ul>
       </nav>
-      <div className="p-6 text-center">
-        <div className="text-3xl font-bold mb-2 text-white">MEDICARE</div>
-        <div className="text-white text-4xl">⚕️</div>
+      <div className="p-6 text-center" style={{marginTop:"160px"}}>
+
+        {/* under of the side bar */}
+        <div className="text-4xl font-bold mb-2 text-white">MEDICARE</div>
+        <div className="text-white text-8xl">⚕️</div>
       </div>
     </div>
   );
