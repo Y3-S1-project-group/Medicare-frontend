@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo.png';
 import { Home, Users, Clipboard, Calendar, FileText, Grid } from 'lucide-react';
 
 const SideNav = () => {
@@ -7,8 +8,8 @@ const SideNav = () => {
     { name: 'Dashboard', icon: Home, path: '/' },
     { name: 'Staff', icon: Users, path: '/AdminStaffMember' },
     { name: 'Patients', icon: Users, path: '/' },
-    { name: 'Shift', icon: Clipboard, path: '/' },
-    { name: 'Reports', icon: FileText, path: '/' },
+    { name: 'Shift', icon: Clipboard, path: '/Shift' },
+    { name: 'Reports', icon: FileText, path: '/Report' },
     { name: 'Appointments', icon: Calendar, path: '/' },
   ];
 
@@ -30,8 +31,9 @@ const SideNav = () => {
         </ul>
       </nav>
       <div className="p-6 text-center">
-        <div className="text-3xl font-bold mb-2 text-white">MEDICARE</div>
-        <div className="text-white text-4xl">⚕️</div>
+        <div className="w-full flex justify-center">
+  <img src={logo} alt="Medicare Logo" className="w-64 h-64 object-contain" />
+</div>
       </div>
     </div>
   );
