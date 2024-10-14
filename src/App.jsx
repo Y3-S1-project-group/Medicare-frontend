@@ -9,6 +9,12 @@ import ClientStaffMembers from './pages/ClientStaffMembers/ClientStaffMembers'
 import Report from './pages/Report/Report';
 import Shift from './pages/Shift/Shift';
 
+
+//AppointmentSystem
+import BookAppointment from './pages/AppointmentSystem/BookAppointment';
+import PaymentGate from './pages/AppointmentSystem/PaymentGate';
+import ViewAppoinments from './pages/AppointmentSystem/ViewAppoinments';
+
 function App() {
   
   return (
@@ -26,7 +32,10 @@ function App() {
         <Route path="/shift" name="shift" element={<Shift/>}/>
         
 
-          
+          {/* AppointmentSystem */}
+          <Route path="/BookAppointment" name="BookAppointment" element={<BookAppointment/>} />
+          <Route path="/PaymentGate" name="PaymentGate" element={<PaymentGate/>} />
+          <Route path="/ViewAppoinments" name="ViewAppoinments" element={<ViewAppoinments/>} />
        
         
 
