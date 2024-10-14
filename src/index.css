@@ -27,9 +27,8 @@ a:hover {
 }
 
 body {
+  background-image: url('./assets/Report genaration.png'); /* Path relative to your project structure */
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
