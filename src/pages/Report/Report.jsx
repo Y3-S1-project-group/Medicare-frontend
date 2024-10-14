@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import SideNavBar from '../../components/SideNavBar/SideNavBar';
-import CombinedHospitalCharts from './CombinedHospitalCharts';
+import CombinedHospitalCharts from '../../components/ReportDetails/CombinedHospitalCharts';
 import { ChevronDown, ChevronUp, Calendar, User, Mail, Stethoscope, Clock } from "lucide-react";
+import Popup from '../../components/ReportDetails/Popup';
+import HospitalReportPDFGenerator from './HospitalReportPDFGenerator';
+
 
 const Report = () => {
     const [report, setReport] = useState([]);
@@ -12,12 +15,14 @@ const Report = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [sortConfig, setSortConfig] = useState({ key: null, direction: 'ascending' });
+    const [selectedPatient, setSelectedPatient] = useState(null);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await fetch('http://localhost:5000/report');
+                const response = await fetch('http://localhost:5000/report/appointments');
                 if (!response.ok) {
                     throw new Error('HTTP Error! Status: ' + response.status);
                 }
@@ -121,9 +126,26 @@ const Report = () => {
         return null;
     };
 
+    const openPopup = (patient) => {
+        setSelectedPatient({
+            ...patient,
+            gender: patient.gender || "Male" // Ensure gender is always present
+        });
+        setIsPopupOpen(true);
+    };
+
+    const closePopup = () => {
+        setIsPopupOpen(false);
+        setSelectedPatient(null);
+    };
+
     return (
         <div className="flex bg-gray-100 min-h-screen">
             <SideNavBar />
+            <div className="p-4">
+    <h1 className="text-2xl font-bold mb-4">Hospital Dashboard Report</h1>
+    <HospitalReportPDFGenerator />
+  </div>
             <div className="flex-1 p-10">
                 {isLoading ? (
                     <div className="flex justify-center items-center h-full">
@@ -183,6 +205,13 @@ const Report = () => {
                                             {filteredReport.map((item, index) => (
                                                 <tr key={index} className="border-b border-gray-200 hover:bg-gray-50 transition duration-150 ease-in-out">
                                                     <td className="px-5 py-4 whitespace-nowrap">
+                                                    <button
+                                                            onClick={() => openPopup(item)}
+                                                            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+                                                        >
+                                                            <Calendar className="inline-block mr-2" />
+                                                            View
+                                                        </button>
                                                         <div className="flex items-center">
                                                             <User className="h-5 w-5 text-gray-400 mr-3" />
                                                             <div className="text-sm font-medium text-gray-900">{item.fullName}</div>
@@ -219,8 +248,13 @@ const Report = () => {
                     </div>
                 )}
             </div>
+            {isPopupOpen && (
+                <Popup
+                    patient={selectedPatient}
+                    onClose={closePopup}
+                />
+            )}
         </div>
     );
 }
-
 export default Report;

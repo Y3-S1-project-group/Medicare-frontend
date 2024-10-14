@@ -9,6 +9,12 @@ import ClientStaffMembers from './pages/ClientStaffMembers/ClientStaffMembers'
 import Report from './pages/Report/Report';
 import Shift from './pages/Shift/Shift';
 
+
+//AppointmentSystem
+import BookAppointment from './pages/AppointmentSystem/BookAppointment';
+import PaymentGate from './pages/AppointmentSystem/PaymentGate';
+import ViewAppoinments from './pages/AppointmentSystem/ViewAppoinments';
+
 //User Management
 import Login from './pages/UserManagement/Login';
 import AdminDashboard from './pages/UserManagement/AdminDashboard';
@@ -75,7 +81,10 @@ function App() {
 
         {/* Redirect any other path to login */}
         <Route path="*" element={<Navigate to="/" />} />
-          
+          {/* AppointmentSystem */}
+          <Route path="/BookAppointment" name="BookAppointment" element={<BookAppointment/>} />
+          <Route path="/PaymentGate" name="PaymentGate" element={<PaymentGate/>} />
+          <Route path="/ViewAppoinments" name="ViewAppoinments" element={<ViewAppoinments/>} />
        
         
 

@@ -5,6 +5,7 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { AlertCircle, Clock, Calendar as CalendarIcon, Users } from 'lucide-react';
 
+
 const localizer = momentLocalizer(moment);
 
 const roleColorMap = {
@@ -149,7 +150,7 @@ const Shift = () => {
         <div className="flex-1 flex flex-col overflow-hidden">
           <header className="bg-white shadow">
             <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-              <h1 className="text-3xl font-bold text-gray-900">Staff Shift Management</h1>
+              
               <div className="flex space-x-4">
                 <div className="bg-blue-100 p-2 rounded-lg flex items-center">
                   <Users className="text-blue-500 mr-2" />
@@ -165,7 +166,7 @@ const Shift = () => {
           <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
             <div className="container mx-auto px-6 py-8">
               <div className="mb-8">
-                <h2 className="text-2xl font-semibold text-gray-900 mb-4">Staff List</h2>
+                <h2 className="text-3xl font-bold text-gray-900">Staff List</h2>
                 <div className="bg-white shadow-md rounded-lg overflow-hidden">
                   <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50">
