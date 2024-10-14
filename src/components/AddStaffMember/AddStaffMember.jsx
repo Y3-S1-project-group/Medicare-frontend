@@ -1,397 +1,295 @@
+/**
+ * This component, `AddStaffMember`, is a React functional component that provides a form
+ * for adding a new staff member. It includes the following functionalities:
+ * 
+ * - State Management:
+ *   - `isModalOpen`: A boolean state to control the visibility of the modal.
+ *   - `formData`: An object state to store the form input values.
+ *   - `errors`: An object state to store validation error messages.
+ * 
+ * - Event Handlers:
+ *   - `handleShowModal`: Opens the modal by setting `isModalOpen` to true.
+ *   - `handleCloseModal`: Closes the modal, resets the form data and errors.
+ *   - `handleChange`: Updates the form data state when an input field changes.
+ *   - `handleFileChange`: Updates the form data state when a file input changes.
+ *   - `validateForm`: Validates the form data and sets error messages if any field is invalid.
+ *   - `handleSubmit`: Handles form submission, validates the form, and sends a POST request to the server.
+ * 
+ * - JSX Structure:
+ *   - A button to open the modal.
+ *   - A modal containing the form with various input fields for staff details.
+ *   - Error messages displayed next to the respective input fields if validation fails.
+ *   - Submit and cancel buttons to handle form submission and modal closing.
+ */
+
 import React, { useState } from "react";
-import swal from "sweetalert";
 import axios from "axios";
-import "../../Styles/display.css";
+import "../../Styles/addStaffMember.css"; 
+import swal from "sweetalert";
 
 const AddStaffMember = () => {
-  const [ID, setId] = useState("");
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [Gender, setGender] = useState("");
-  const [Role, setRole] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [Address, setAddress] = useState("");
-  const [DOB, setDob] = useState("");
-  const [NIC, setNic] = useState("");
-  const [Email, setEmail] = useState("");
-  const [Password, setPassword] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    ID: "",
+    FirstName: "",
+    LastName: "",
+    Gender: "",
+    Role: "",
+    PhoneNumber: "",
+    Address: "",
+    DOB: "",
+    NIC: "",
+    Email: "",
+    Password: "",
+    ConfirmPassword: "",
+  });
   const [errors, setErrors] = useState({});
-  const [showModal, setShowModal] = useState(false);
 
+  const handleShowModal = () => setIsModalOpen(true);
   const handleCloseModal = () => {
-    setShowModal(false);
+    setIsModalOpen(false);
+    // Reset form and errors when closing the modal
+    setFormData({
+      ID: "",
+      FirstName: "",
+      LastName: "",
+      Gender: "",
+      Role: "",
+      PhoneNumber: "",
+      Address: "",
+      DOB: "",
+      NIC: "",
+      Email: "",
+      Password: "",
+      ConfirmPassword: "",
+    });
+    setErrors({});
   };
 
-  const handleShowModal = () => {
-    setShowModal(true);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleFileChange = (e) => {
+    const { name, files } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: files[0]
+    }));
   };
 
   const validateForm = () => {
-    const errors = {};
+    const newErrors = {};
     let isValid = true;
 
-    if (!ID) {
-      errors.id = "Staff ID is required";
+    if (!formData.ID) {
+      newErrors.ID = "Staff ID is required";
+      isValid = false;
+    }
+    if (!formData.FirstName) {
+      newErrors.FirstName = "First name is required";
+      isValid = false;
+    }
+    if (!formData.LastName) {
+      newErrors.LastName = "Last name is required";
+      isValid = false;
+    }
+    if (!formData.Gender) {
+      newErrors.Gender = "Gender is required";
+      isValid = false;
+    }
+    if (!formData.Role) {
+      newErrors.Role = "Role is required";
+      isValid = false;
+    }
+    if (!formData.PhoneNumber || formData.PhoneNumber.length !== 10) {
+      newErrors.PhoneNumber = "Valid phone number is required";
+      isValid = false;
+    }
+    if (!formData.DOB) {
+      newErrors.DOB = "Date of birth is required";
+      isValid = false;
+    }
+    if (!formData.NIC) {
+      newErrors.NIC = "NIC is required";
+      isValid = false;
+    }
+    if (!formData.Email) {
+      newErrors.Email = "Email is required";
+      isValid = false;
+    }
+    if (!formData.Password) {
+      newErrors.Password = "Password is required";
+      isValid = false;
+    }
+    if (formData.Password !== formData.ConfirmPassword) {
+      newErrors.ConfirmPassword = "Passwords do not match";
       isValid = false;
     }
 
-    if (!FirstName) {
-      errors.firstName = "First name is required";
-      isValid = false;
-    }
-
-    if (!LastName) {
-      errors.lastName = "Last name is required";
-      isValid = false;
-    }
-
-    if (!Gender) {
-      errors.gender = "Gender is required";
-      isValid = false;
-    }
-
-    if (!Role) {
-      errors.role = "Role is required";
-      isValid = false;
-    }
-
-    if (!PhoneNumber || PhoneNumber.length !== 10) {
-      errors.phoneNumber = "Valid phone number is required";
-      isValid = false;
-    }
-
-    if (!DOB) {
-      errors.dob = "Date of birth is required";
-      isValid = false;
-    }
-
-    if (!NIC) {
-      errors.nic = "NIC is required";
-      isValid = false;
-    }
-
-    if (!Email) {
-      errors.email = "Email is required";
-      isValid = false;
-    }
-
-    if (!Password) {
-      errors.password = "Password is required";
-      isValid = false;
-    }
-
-    setErrors(errors);
+    setErrors(newErrors);
     return isValid;
   };
 
-  const sendData = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const staffData = {
-      ID,
-      FirstName,
-      LastName,
-      Gender,
-      Role,
-      PhoneNumber,
-      Address,
-      DOB,
-      NIC,
-      Email,
-      Password,
-    };
-
     if (validateForm()) {
-      axios
-        .post("http://localhost:5000/api/staff/addStaff", staffData)
-        .then((response) => {
-          console.log(response.data);
-
-          // Clear the form inputs
-          setId("");
-          setFirstName("");
-          setLastName("");
-          setGender("");
-          setRole("");
-          setPhoneNumber("");
-          setAddress("");
-          setDob("");
-          setNic("");
-          setEmail("");
-          setPassword("");
-
-          swal({
-            text: "Staff member added successfully",
-            icon: "success",
-            buttons: {
-              cancel: { text: "Cancel" },
-              confirm: { text: "OK" },
-            },
-          }).then((value) => {
-            handleCloseModal();
-            window.location.reload();
-          });
-        })
-        .catch((error) => {
-          console.log("Error response:", error.response);
-          console.log("Error message:", error.message);
-          alert("Failed to add staff member");
+      try {
+        const response = await axios.post("http://localhost:5000/api/staff/addStaff", formData);
+        console.log(response.data);
+        swal({
+          text: "Staff member registered successfully",
+          icon: "success",
+          buttons: {
+            cancel: { text: "Cancel" },
+            confirm: { text: "OK" },
+          },
+        }).then(() => {
+          handleCloseModal();
+          window.location.reload();
         });
-
-      handleCloseModal();
+      } catch (error) {
+        console.error("Error registering staff member:", error);
+        alert("Failed to register staff member");
+      }
     }
   };
 
   return (
     <div>
       <button
-        className="bg-customGreen text-white font-bold py-2 px-4 rounded mb-4 mr-4 float-right"
+        className="btn"
         onClick={handleShowModal}
-      >
-        <span className="mr-2">+</span> Add Staff Member
+      >Add Staff Member<span className="circle">+</span>
       </button>
 
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 z-50 overflow-auto flex items-center justify-center">
-          <div
-            className="fixed inset-0 transition-opacity"
-            onClick={handleCloseModal}
-          >
-            <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
-          </div>
-          <div className="relative bg-white p-8 rounded-lg shadow-xl max-w-xl w-full">
-            <button
-              className="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-700"
-              onClick={handleCloseModal}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <form onSubmit={handleSubmit} className="add-staff-form">
+              <div className="form-row">
+                <input
+                  type="text"
+                  name="ID"
+                  value={formData.ID}
+                  onChange={handleChange}
+                  placeholder="ID"
                 />
-              </svg>
-            </button>
-            <h2>
-              <center>Add Staff Member</center>
-            </h2>
-            {/* Form */}
-            <div className="form-container">
-              <form onSubmit={sendData} className="form-table">
-                <table>
-                  <tbody>
-                    <tr>
-                      <th>
-                        <label htmlFor="Id">Staff ID</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="Id"
-                          placeholder="Enter Staff ID"
-                          required
-                          value={ID}
-                          onChange={(e) => setId(e.target.value)}
-                        />
-                        {errors.id && <div className="text-red-600">{errors.id}</div>}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="FirstName">First Name</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="FirstName"
-                          placeholder="Enter First Name"
-                          required
-                          value={FirstName}
-                          onChange={(e) => setFirstName(e.target.value)}
-                        />
-                        {errors.firstName && (
-                          <div className="text-red-600">{errors.firstName}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="LastName">Last Name</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="LastName"
-                          placeholder="Enter Last Name"
-                          required
-                          value={LastName}
-                          onChange={(e) => setLastName(e.target.value)}
-                        />
-                        {errors.lastName && (
-                          <div className="text-red-600">{errors.lastName}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="Gender">Gender</label>
-                      </th>
-                      <td>
-                        <select
-                          id="Gender"
-                          required
-                          value={Gender}
-                          onChange={(e) => setGender(e.target.value)}
-                        >
-                          <option value="">Select Gender</option>
-                          <option value="Male">Male</option>
-                          <option value="Female">Female</option>
-                          <option value="Other">Other</option>
-                        </select>
-                        {errors.gender && (
-                          <div className="text-red-600">{errors.gender}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="Role">Role</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="Role"
-                          placeholder="Enter Role"
-                          required
-                          value={Role}
-                          onChange={(e) => setRole(e.target.value)}
-                        />
-                        {errors.role && (
-                          <div className="text-red-600">{errors.role}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="PhoneNumber">Phone Number</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="PhoneNumber"
-                          placeholder="Enter Phone Number"
-                          required
-                          value={PhoneNumber}
-                          onChange={(e) => setPhoneNumber(e.target.value)}
-                        />
-                        {errors.phoneNumber && (
-                          <div className="text-red-600">{errors.phoneNumber}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="Address">Address</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="Address"
-                          placeholder="Enter Address"
-                          value={Address}
-                          onChange={(e) => setAddress(e.target.value)}
-                        />
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="DOB">Date of Birth</label>
-                      </th>
-                      <td>
-                        <input
-                          type="date"
-                          id="DOB"
-                          required
-                          value={DOB}
-                          onChange={(e) => setDob(e.target.value)}
-                        />
-                        {errors.dob && <div className="text-red-600">{errors.dob}</div>}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="NIC">NIC</label>
-                      </th>
-                      <td>
-                        <input
-                          type="text"
-                          id="NIC"
-                          placeholder="Enter NIC"
-                          required
-                          value={NIC}
-                          onChange={(e) => setNic(e.target.value)}
-                        />
-                        {errors.nic && <div className="text-red-600">{errors.nic}</div>}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="Email">Email</label>
-                      </th>
-                      <td>
-                        <input
-                          type="email"
-                          id="Email"
-                          placeholder="Enter Email"
-                          required
-                          value={Email}
-                          onChange={(e) => setEmail(e.target.value)}
-                        />
-                        {errors.email && (
-                          <div className="text-red-600">{errors.email}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <th>
-                        <label htmlFor="Password">Password</label>
-                      </th>
-                      <td>
-                        <input
-                          type="password"
-                          id="Password"
-                          placeholder="Enter Password"
-                          required
-                          value={Password}
-                          onChange={(e) => setPassword(e.target.value)}
-                        />
-                        {errors.password && (
-                          <div className="text-red-600">{errors.password}</div>
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td colSpan="2">
-                        <button
-                          type="submit"
-                          className="bg-customGreen text-white font-bold py-2 px-4 rounded"
-                        >
-                          Submit
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </form>
-            </div>
+                {errors.ID && <div className="text-red-600">{errors.ID}</div>}
+                <select
+                  name="Role"
+                  value={formData.Role}
+                  onChange={handleChange}
+                >
+                  <option value="">Role</option>
+                  <option value="Doctor">Doctor</option>
+                  <option value="Nurse">Nurse</option>
+                  <option value="Technician">Technician</option>
+                  <option value="Administrative staff">Administrative staff</option>
+
+                </select>
+                {errors.Role && <div className="text-red-600">{errors.Role}</div>}
+              </div>
+              <div className="form-row">
+                <input
+                  type="text"
+                  name="FirstName"
+                  value={formData.FirstName}
+                  onChange={handleChange}
+                  placeholder="First Name"
+                />
+                {errors.FirstName && <div className="text-red-600">{errors.FirstName}</div>}
+                <input
+                  type="text"
+                  name="LastName"
+                  value={formData.LastName}
+                  onChange={handleChange}
+                  placeholder="Last Name"
+                />
+                {errors.LastName && <div className="text-red-600">{errors.LastName}</div>}
+              </div>
+              <div className="form-row">
+                <select
+                  name="Gender"
+                  value={formData.Gender}
+                  onChange={handleChange}
+                >
+                  <option value="">Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.Gender && <div className="text-red-600">{errors.Gender}</div>}
+                <input
+                  type="text"
+                  name="PhoneNumber"
+                  value={formData.PhoneNumber}
+                  onChange={handleChange}
+                  placeholder="Phone Number"
+                />
+                {errors.PhoneNumber && <div className="text-red-600">{errors.PhoneNumber}</div>}
+              </div>
+              <div className="form-row">
+                <input
+                  type="text"
+                  name="Address"
+                  value={formData.Address}
+                  onChange={handleChange}
+                  placeholder="Address"
+                />
+                <input
+                  type="date"
+                  name="DOB"
+                  value={formData.DOB}
+                  onChange={handleChange}
+                />
+                {errors.DOB && <div className="text-red-600">{errors.DOB}</div>}
+              </div>
+              <div className="form-row">
+                <input
+                  type="text"
+                  name="NIC"
+                  value={formData.NIC}
+                  onChange={handleChange}
+                  placeholder="NIC"
+                />
+                {errors.NIC && <div className="text-red-600">{errors.NIC}</div>}
+                <input
+                  type="email"
+                  name="Email"
+                  value={formData.Email}
+                  onChange={handleChange}
+                  placeholder="Email"
+                />
+                {errors.Email && <div className="text-red-600">{errors.Email}</div>}
+              </div>
+              <div className="form-row">
+                <input
+                  type="password"
+                  name="Password"
+                  value={formData.Password}
+                  onChange={handleChange}
+                  placeholder="Password"
+                />
+                {errors.Password && <div className="text-red-600">{errors.Password}</div>}
+                <input
+                  type="password"
+                  name="ConfirmPassword"
+                  value={formData.ConfirmPassword}
+                  onChange={handleChange}
+                  placeholder="Confirm Password"
+                />
+                {errors.ConfirmPassword && <div className="text-red-600">{errors.ConfirmPassword}</div>}
+              </div>
+              <div className="form-actions">
+                <button type="button" className="cancel-btn" onClick={handleCloseModal}>Cancel</button>
+                <button type="submit" className="register-btn">Register</button>
+              </div>
+            </form>
           </div>
         </div>
       )}

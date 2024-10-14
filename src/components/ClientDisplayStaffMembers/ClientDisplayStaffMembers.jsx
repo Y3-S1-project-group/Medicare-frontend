@@ -5,7 +5,7 @@ import UpdateStaffMember from '../UpdateStaffMember/UpdateStaffMember'; // Updat
 import DeleteStaffMember from '../DeleteStaffMember/DeleteStaffMember'; // Delete staff member component
 import AddStaffMember from '../AddStaffMember/AddStaffMember';
 
-function DisplayStaffMembers() {
+function ClientDisplayStaffMembers() {
     const [staffMembers, setStaffMembers] = useState([]);
 
     // Fetch all staff members from the backend
@@ -75,11 +75,7 @@ function DisplayStaffMembers() {
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
-              <th>ID</th>
               <th>Role</th>
-              <th>Email</th>
-              <th>Update</th>
-              <th>Delete</th>
             </tr>
           </thead>
           <tbody>
@@ -87,15 +83,7 @@ function DisplayStaffMembers() {
               <tr key={i}>
                 <td>{member.FirstName}</td> {/* Display First Name */}
                 <td>{member.LastName}</td> {/* Display Last Name */}
-                <td>{member.ID}</td> {/* Display Staff ID */}
                 <td>{member.Role}</td> {/* Display Role */}
-                <td>{member.Email}</td> {/* Display Email */}
-                <td>
-                  <UpdateStaffMember staffId={member.ID} /> {/* Update button */}
-                </td>
-                <td>
-                  <DeleteStaffMember staffId={member.ID} /> {/* Delete button */}
-                </td>
               </tr>
             ))}
           </tbody>
@@ -104,4 +92,4 @@ function DisplayStaffMembers() {
     );
 }
 
-export default DisplayStaffMembers;
+export default ClientDisplayStaffMembers;

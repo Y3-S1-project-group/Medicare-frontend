@@ -1,9 +1,8 @@
 import React from 'react'
-
-import DisplayStaffMembers from '../../components/DisplayStaffMember/DisplayStaffMembers';
+import ClientDisplayStaffMembers from '../../components/ClientDisplayStaffMembers/ClientDisplayStaffMembers'
 import SideNavBar from '../../components/SideNavBar/SideNavBar';
 
-const AdminStaffMember = () => {
+const ClientStaffMembers = () => {
   return (
     <>
       
@@ -13,11 +12,11 @@ const AdminStaffMember = () => {
         <br />
         <br />
         <SideNavBar />
-        <DisplayStaffMembers />
+        <ClientDisplayStaffMembers />
       </div>
     </>
   );
 }
 
-export default AdminStaffMember
+export default ClientStaffMembers;
 
