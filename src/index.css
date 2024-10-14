@@ -7,9 +7,13 @@
   line-height: 1.5;
   font-weight: 400;
 
+<<<<<<< HEAD
   /*color-scheme: light dark;
+=======
+  /* color-scheme: light dark;
+>>>>>>> 2064ccf3ae406dbd42ca9695ef672482d0949b3b
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #242424; */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -27,9 +31,8 @@ a:hover {
 }
 
 body {
+  background-image: url('./assets/Report genaration.png'); /* Path relative to your project structure */
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }

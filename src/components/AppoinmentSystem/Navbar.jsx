@@ -1,21 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
 import { Home, Users, Clipboard, Calendar, FileText, Grid } from 'lucide-react';
 
-const SideNav = () => {
+const Navbar = () => {
+  //paths
   const navItems = [
-    { name: 'Dashboard', icon: Home, path: '/' },
-    { name: 'Staff', icon: Users, path: '/AdminStaffMember' },
-    { name: 'Patients', icon: Users, path: '/' },
-<<<<<<< HEAD
-    { name: 'Shift', icon: Clipboard, path: '/' },
+    { name: 'Home', icon: Home, path: '/' },
+    { name: 'Registration', icon: Users, path: '/' },
     { name: 'Reports', icon: FileText, path: '/' },
-=======
-    { name: 'Shift', icon: Clipboard, path: '/Shift' },
-    { name: 'Reports', icon: FileText, path: '/Report' },
->>>>>>> 2064ccf3ae406dbd42ca9695ef672482d0949b3b
-    { name: 'Appointments', icon: Calendar, path: '/' },
+    { name: 'Appointment', icon: Clipboard, path: '/BookAppointment' },
+    { name: 'Appointments', icon: Calendar, path: '/ViewAppoinments' },
   ];
 
   return (
@@ -23,6 +17,8 @@ const SideNav = () => {
       <div className="p-4">
         <Grid size={24} className="mb-2 text-white" />
       </div>
+
+      {/* Navigations */}
       <nav>
         <ul className="space-y-2 py-4">
           {navItems.map((item) => (
@@ -35,13 +31,14 @@ const SideNav = () => {
           ))}
         </ul>
       </nav>
-      <div className="p-6 text-center">
-        <div className="w-full flex justify-center">
-  <img src={logo} alt="Medicare Logo" className="w-64 h-64 object-contain" />
-</div>
+      <div className="p-6 text-center" style={{marginTop:"160px"}}>
+
+        {/* under of the side bar */}
+        <div className="text-4xl font-bold mb-2 text-white">MEDICARE</div>
+        <div className="text-white text-8xl">⚕️</div>
       </div>
     </div>
   );
 };
 
-export default SideNav;
+export default Navbar;
