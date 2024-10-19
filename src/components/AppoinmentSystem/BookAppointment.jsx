@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const AppointmentForm = () => {
   const navigate = useNavigate();
   
-  // State to manage input fields and doctor selections
   const [searchTerm, setSearchTerm] = useState('');
   const [doctors, setDoctors] = useState([
     { name: 'Dr. John Smith', timeSlots: ['09:00 AM', '10:00 AM', '11:00 AM'] },
@@ -18,15 +17,13 @@ const AppointmentForm = () => {
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [selectedDoctor, setSelectedDoctor] = useState('');
   const [selectedTime, setSelectedTime] = useState('');
+  // Add a new state for temporarily highlighted time
+  const [highlightedTime, setHighlightedTime] = useState('');
 
-  // Handle search input for filtering doctors
   const handleSearch = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
     
-    // Log the current search term
-    console.log("Search term:", term);
-
     if (term) {
       const filtered = doctors.filter(doctor =>
         doctor.name.toLowerCase().includes(term.toLowerCase())
@@ -37,18 +34,20 @@ const AppointmentForm = () => {
     }
   };
 
-  // Select a doctor from the filtered list
   const selectDoctor = (doctor) => {
     setSearchTerm(doctor.name);
     setFilteredDoctors([]);
     setSelectedDoctor(doctor.name);
-    setSelectedTime('');
-    
-    // Log the selected doctor
-    console.log("Selected doctor:", doctor.name);
+    setHighlightedTime(''); // Reset highlighted time when doctor changes
+    setSelectedTime(''); // Reset selected time when doctor changes
   };
 
-  // Handle the form submission
+  // Modified to handle time slot highlighting
+  const handleTimeHighlight = (time) => {
+    setHighlightedTime(time);
+    setSelectedTime(time);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -58,7 +57,6 @@ const AppointmentForm = () => {
       return;
     }
 
-    // Collect appointment data
     const appointmentData = {
       fullName: document.getElementById('fullName').value,
       gender: document.getElementById('gender').value,
@@ -68,10 +66,6 @@ const AppointmentForm = () => {
       time: selectedTime,
     };
 
-    // Log appointment data
-    console.log("Appointment data:", appointmentData);
-
-    // Send appointment data to the server
     try {
       const response = await fetch('http://localhost:5000/Appoint/add', {
         method: 'POST',
@@ -81,7 +75,6 @@ const AppointmentForm = () => {
         body: JSON.stringify(appointmentData),
       });
 
-      // Check the response status
       if (response.ok) {
         navigate('/PaymentGate');
       } else {
@@ -94,13 +87,6 @@ const AppointmentForm = () => {
   };
 
   const today = new Date().toISOString().split('T')[0];
-
-  // Handle selection of time slot
-  const handleTimeSelection = (time) => {
-    setSelectedTime(time);
-    // Log the selected time
-    console.log("Selected time:", time);
-  };
 
   return (
     <div style={{ 
@@ -136,7 +122,6 @@ const AppointmentForm = () => {
 
       <div style={{ padding: '1.5rem' }}>
         <form onSubmit={handleSubmit}>
-
           <div style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center' }}>
             <label htmlFor="fullName" style={{ marginRight: '1rem', fontWeight: 'bold', color: '#4a5568', width: '150px' }}>Full name:</label>
             <input id="fullName" type="text" style={{ flex: 1, padding: '0.5rem', border: '1px solid #e2e8f0', borderRadius: '5px', fontSize: '1rem' }} required />
@@ -217,18 +202,18 @@ const AppointmentForm = () => {
             <label style={{ marginRight: '1rem', fontWeight: 'bold', color: '#4a5568', width: '150px' }}>Select Time:</label>
             {selectedDoctor && doctors.find(doctor => doctor.name === selectedDoctor)?.timeSlots.map((time, index) => (
               <button 
+                type="button" // Add type="button" to prevent form submission
                 key={index} 
-                onClick={() => handleTimeSelection(time)} 
+                onClick={() => handleTimeHighlight(time)}
                 style={{ 
                   marginRight: '0.5rem', 
                   padding: '0.5rem', 
                   border: '1px solid #e2e8f0', 
                   borderRadius: '5px', 
-                  backgroundColor: selectedTime === time ? '#3b82f6' : 'white', 
-                  color: selectedTime === time ? 'white' : '#4a5568',
+                  backgroundColor: highlightedTime === time ? '#3b82f6' : 'white', 
+                  color: highlightedTime === time ? 'white' : '#4a5568',
                   cursor: 'pointer'
-                }}
-              >
+                }}>
                 {time}
               </button>
             ))}
