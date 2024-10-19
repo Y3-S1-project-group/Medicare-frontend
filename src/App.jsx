@@ -13,6 +13,7 @@ import Signup from "./pages/UserManagement/Signup";
 import ForgotPassword from "./pages/UserManagement/ForgotPassword";
 import VerifyOTP from "./pages/UserManagement/VerifyOTP";
 import ResetPassword from "./pages/UserManagement/ResetPassword";
+import PatientProfile from "./pages/UserManagement/PatientProfile";
 
 //Staff Management
 import AdminStaffMember from "./pages/AdminStaffMember/AdminStaffMember";
@@ -27,6 +28,7 @@ import PaymentGate from "./pages/AppointmentSystem/PaymentGate";
 import ViewAppoinments from "./pages/AppointmentSystem/ViewAppoinments";
 import UserHome from "./pages/AppointmentSystem/UserHome";
 
+
 function App() {
   return (
     <Router>
@@ -38,6 +40,7 @@ function App() {
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verifyotp" element={<VerifyOTP />} />
           <Route path="/reset-password/:hash" element={<ResetPassword />} />
+          <Route path="/profile" element={<PatientProfile />} />
 
           {/*Staff Management*/}
           <Route

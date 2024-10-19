@@ -1,6 +1,7 @@
 import axios from "axios";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+// Patient Login
 export const patientLogin = async (body) => {
   try {
     const backendURL = `${baseUrl}/api/patients/login`; // Adjust based on your API URL
@@ -13,6 +14,7 @@ export const patientLogin = async (body) => {
   }
 };
 
+// Get Patient Profile
 export const handlePatientSignup = async (formData) => {
   try {
     const backendURL = `${baseUrl}/api/patients/signup`;
@@ -27,6 +29,7 @@ export const handlePatientSignup = async (formData) => {
   }
 };
 
+// Forgot Password 
 export const patientForgotPassword = async (body) => {
   localStorage.setItem("email", body.email);
   try {
@@ -41,6 +44,7 @@ export const patientForgotPassword = async (body) => {
   }
 };
 
+// OTP Verification
 export const patientVerifyOtp = async (otp) => {
   const hash = localStorage.getItem("hash");
   const body = { otp, hash };
@@ -57,6 +61,7 @@ export const patientVerifyOtp = async (otp) => {
   }
 };
 
+//Reset Password
 export const patientResetPassword = async (newPassword) => {
   const email = localStorage.getItem("email");
   try {
@@ -72,5 +77,21 @@ export const patientResetPassword = async (newPassword) => {
     return response;
   } catch (error) {
     return error;
+  }
+};
+
+// Get Patient Profile
+export const getPatientProfile = async () => {
+  try {
+    const token = localStorage.getItem('token'); // Get the token from localStorage
+    const response = await axios.get(`${baseUrl}/api/patients/profile`, {
+      headers: {
+        Authorization: `Bearer ${token}` // Send the token in the header
+      },
+    });
+    return response.data; // Return profile data
+  } catch (err) {
+    console.error("Error fetching profile:", err);
+    return err;
   }
 };
