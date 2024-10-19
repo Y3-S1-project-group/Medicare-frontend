@@ -8,8 +8,8 @@ const SideNav = () => {
     { name: 'Dashboard', icon: Home, path: '/' },
     { name: 'Staff', icon: Users, path: '/AdminStaffMember' },
     { name: 'Patients', icon: Users, path: '/' },
-    { name: 'Shift', icon: Clipboard, path: '/' },
-    { name: 'Reports', icon: FileText, path: '/' },
+    { name: 'Shift', icon: Clipboard, path: '/Shift' },
+    { name: 'Reports', icon: FileText, path: '/Report' },
     { name: 'Appointments', icon: Calendar, path: '/' },
   ];
 
