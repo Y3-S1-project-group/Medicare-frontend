@@ -213,8 +213,7 @@ const AppointmentForm = () => {
                   backgroundColor: highlightedTime === time ? '#3b82f6' : 'white', 
                   color: highlightedTime === time ? 'white' : '#4a5568',
                   cursor: 'pointer'
-                }}
-              >
+                }}>
                 {time}
               </button>
             ))}
