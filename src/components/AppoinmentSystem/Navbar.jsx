@@ -5,7 +5,7 @@ import { Home, Users, Clipboard, Calendar, FileText, Grid } from 'lucide-react';
 const Navbar = () => {
   //paths
   const navItems = [
-    { name: 'Home', icon: Home, path: '/' },
+    { name: 'Home', icon: Home, path: '/Home' },
     { name: 'Registration', icon: Users, path: '/' },
     { name: 'Reports', icon: FileText, path: '/' },
     { name: 'Appointment', icon: Clipboard, path: '/BookAppointment' },
