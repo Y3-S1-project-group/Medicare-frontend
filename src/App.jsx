@@ -22,28 +22,18 @@ import Report from "./pages/Report/Report";
 import Shift from "./pages/Shift/Shift";
 
 //AppointmentSystem
-import BookAppointment from './pages/AppointmentSystem/BookAppointment';
-import PaymentGate from './pages/AppointmentSystem/PaymentGate';
-import ViewAppoinments from './pages/AppointmentSystem/ViewAppoinments';
-import UserHome from './pages/AppointmentSystem/UserHome';
-
-//User Management
-import Login from './pages/UserManagement/Login';
-import AdminDashboard from './pages/UserManagement/AdminDashboard';
-import DoctorDashboard from './pages/UserManagement/DoctorDashboard';
-import NurseDashboard from './pages/UserManagement/NurseDashboard';
-import PatientDashboard from './pages/UserManagement/PatientDashboard';
-// import PrivateRoute from './components/PrivateRoute';
-import Signup from './pages/UserManagement/Signup';
+import BookAppointment from "./pages/AppointmentSystem/BookAppointment";
+import PaymentGate from "./pages/AppointmentSystem/PaymentGate";
+import ViewAppoinments from "./pages/AppointmentSystem/ViewAppoinments";
+import UserHome from "./pages/AppointmentSystem/UserHome";
 
 function App() {
   return (
     <Router>
       <main>
         <Routes>
-
           {/* User Management */}
-          <Route path="/login" element={<PatientLogin/>} />
+          <Route path="/login" element={<PatientLogin />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/verifyotp" element={<VerifyOTP />} />
@@ -64,57 +54,30 @@ function App() {
           {/*Report*/}
           <Route path="/report" name="report" element={<Report />} />
 
-        {/*SHIFT*/}
-        <Route path="/shift" name="shift" element={<Shift/>}/>
-        
-        <Route path="/" element={<Login />} />
+          {/*SHIFT*/}
+          <Route path="/shift" name="shift" element={<Shift />} />
 
-        <Route path="/signup" element={<Signup />} />
+          <Route path="/Home" name="Home" element={<UserHome />} />
 
-        <Route path="/Home" name="Home" element={<UserHome/>} />
-
-        {/* Protected routes */}
-        {/* <Route 
-          path="/admin" 
-          element={
-            <PrivateRoute role={role} allowedRoles={['admin']}>
-              <AdminDashboard />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/doctor" 
-          element={
-            <PrivateRoute role={role} allowedRoles={['doctor']}>
-              <DoctorDashboard />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/nurse" 
-          element={
-            <PrivateRoute role={role} allowedRoles={['nurse']}>
-              <NurseDashboard />
-            </PrivateRoute>
-          } 
-        />
-        <Route 
-          path="/patient" 
-          element={
-            <PrivateRoute role={role} allowedRoles={['patient']}>
-              <PatientDashboard />
-            </PrivateRoute>
-          } 
-        /> */}
-
-        {/* Redirect any other path to login */}
-        <Route path="*" element={<Navigate to="/" />} />
+          {/* Redirect any other path */}
+          <Route path="*" element={<Navigate to="/" />} />
           {/* AppointmentSystem */}
-          <Route path="/BookAppointment" name="BookAppointment" element={<BookAppointment/>} />
-          <Route path="/PaymentGate" name="PaymentGate" element={<PaymentGate/>} />
-          <Route path="/ViewAppoinments" name="ViewAppoinments" element={<ViewAppoinments/>} />
-       
-        
+          <Route
+            path="/BookAppointment"
+            name="BookAppointment"
+            element={<BookAppointment />}
+          />
+          <Route
+            path="/PaymentGate"
+            name="PaymentGate"
+            element={<PaymentGate />}
+          />
+          <Route
+            path="/ViewAppoinments"
+            name="ViewAppoinments"
+            element={<ViewAppoinments />}
+          />
+
           {/*SHIFT*/}
           <Route path="/shift" name="shift" element={<Shift />} />
 
@@ -137,7 +100,6 @@ function App() {
 
           {/* Redirect any other path*/}
           <Route path="*" element={<Navigate to="/" />} />
-
         </Routes>
       </main>
     </Router>
