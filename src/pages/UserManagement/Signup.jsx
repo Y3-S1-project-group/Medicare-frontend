@@ -1,100 +1,270 @@
-/**
- * This component handles the signup process for a patient.
- * It includes a form where the user can input their personal details and the details of their closest person.
- * The form data is managed using the useState hook and submitted via an HTTP POST request using axios.
- * Upon successful signup, the user is navigated to the home page.
- */
-
-import { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { handlePatientSignup } from "../../Services/patientService";
 
 const Signup = () => {
-    // useState hook to manage the form data state
-    const [formData, setFormData] = useState({
-        firstname: '',
-        lastname: '',
-        age: '',
-        sex: '',
-        birthdate: '',
-        address: '',
-        contactNumber: '',
-        email: '',
-        password: '',
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    dateOfBirth: "",
+    gender: "",
+    age: "",
+    address: "",
+    contactNumber: "",
+    email: "",
+    password: "",
+    closestPerson: {
+      firstName: "",
+      lastName: "",
+      address: "",
+      contactNumber: "",
+    },
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    if (name.includes("closestPerson")) {
+      const fieldName = name.split(".")[1];
+      setFormData((prevData) => ({
+        ...prevData,
         closestPerson: {
-            firstname: '',
-            lastname: '',
-            address: '',
-            contactNumber: '',
-        }
-    });
+          ...prevData.closestPerson,
+          [fieldName]: value,
+        },
+      }));
+    } else {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await handlePatientSignup(formData);
+      console.log("Signup response:", response.status);
+
+      if (response.status === 201) {
+        console.log("Response is 201, navigating...");
+        const result = response.data;
+        console.log("Signup successful:", result);
+        navigate("/login");
+      } else {
+        const errorData = await response.data;
+        console.error("Signup failed:", errorData);
+      }
+    } catch (error) {
+      console.error("Error during signup:", error);
+    }
+  };
+
+  return (
+    <div className="container max-w-lg p-8 mx-auto mt-10 bg-white rounded-lg shadow-lg">
+  <h2 className="mb-4 text-2xl font-bold text-center text-blue-600">Patient Signup</h2>
+  <form onSubmit={handleSubmit}>
+    <h3 className="mb-2 text-xl font-bold text-gray-800">Your Details</h3>
     
-    // useNavigate hook to programmatically navigate to different routes
-    const navigate = useNavigate();
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Firstname</label>
+      <input
+        type="text"
+        name="firstName"
+        placeholder="First Name"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+    
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Lastname</label>
+      <input
+        type="text"
+        name="lastName"
+        placeholder="Last Name"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-    // handleChange function to update the form data state when an input field changes
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (name.includes('closestPerson')) {
-            const closestPersonField = name.split('.')[1];
-            setFormData((prevData) => ({
-                ...prevData,
-                closestPerson: {
-                    ...prevData.closestPerson,
-                    [closestPersonField]: value
-                }
-            }));
-        } else {
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: value
-            }));
-        }
-    };
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">DOB</label>
+      <input
+        type="date"
+        name="dateOfBirth"
+        placeholder="Date of Birth"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
 
-    // handleSubmit function to handle the form submission
-    // It sends the form data to the server and navigates to the home page upon success
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await axios.post('http://localhost:5000/api/auth/signup/patient', formData);
-            alert('Signup successful');
-            navigate('/');
-        } catch (error) {
-            console.error(error);
-            alert('Signup failed');
-        }
-    };
-
-    return (
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Gender</label>
+      <div className="flex items-center gap-4">
         <div>
-            <h2>Patient Signup</h2>
-            <form onSubmit={handleSubmit}>
-                <h3>Your Details</h3>
-                <input type="text" name="firstname" placeholder="First Name" onChange={handleChange} required />
-                <input type="text" name="lastname" placeholder="Last Name" onChange={handleChange} required />
-                <input type="number" name="age" placeholder="Age" onChange={handleChange} required />
-                <select name="sex" onChange={handleChange} required>
-                    <option value="">Select Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                </select>
-                <input type="text" name="address" placeholder="Address" onChange={handleChange} required />
-                <input type="text" name="contactNumber" placeholder="Contact Number" onChange={handleChange} required />
-                <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
-                <input type="password" name="password" placeholder="Password" onChange={handleChange} required />
-
-                <h3>Closest Person&apos;s Details</h3>
-                <input type="text" name="closestPerson.firstname" placeholder="First Name" onChange={handleChange} required />
-                <input type="text" name="closestPerson.lastname" placeholder="Last Name" onChange={handleChange} required />
-                <input type="text" name="closestPerson.address" placeholder="Address" onChange={handleChange} required />
-                <input type="text" name="closestPerson.contactNumber" placeholder="Contact Number" onChange={handleChange} required />
-
-                <button type="submit">Signup</button>
-            </form>
+          <input
+            type="radio"
+            name="gender"
+            value="Male"
+            onChange={handleChange}
+            required
+            className="mr-1"
+          />
+          <label className="text-gray-600">Male</label>
         </div>
-    );
+        <div>
+          <input
+            type="radio"
+            name="gender"
+            value="Female"
+            onChange={handleChange}
+            required
+            className="mr-1"
+          />
+          <label className="text-gray-600">Female</label>
+        </div>
+        <div>
+          <input
+            type="radio"
+            name="gender"
+            value="Other"
+            onChange={handleChange}
+            required
+            className="mr-1"
+          />
+          <label className="text-gray-600">Other</label>
+        </div>
+      </div>
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Age</label>
+      <input
+        type="number"
+        name="age"
+        placeholder="Age"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Address</label>
+      <input
+        type="text"
+        name="address"
+        placeholder="Address"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Contact Number</label>
+      <input
+        type="text"
+        name="contactNumber"
+        placeholder="Contact Number"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Email</label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Password</label>
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <h3 className="mb-2 text-xl font-bold text-gray-800">Closest Person&apos;s Details</h3>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Firstname</label>
+      <input
+        type="text"
+        name="closestPerson.firstName"
+        placeholder="First Name"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Lastname</label>
+      <input
+        type="text"
+        name="closestPerson.lastName"
+        placeholder="Last Name"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Address</label>
+      <input
+        type="text"
+        name="closestPerson.address"
+        placeholder="Address"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <div className="mb-4">
+    <label className="block mb-2 text-lg font-semibold text-gray-700">Contact Number</label>
+      <input
+        type="text"
+        name="closestPerson.contactNumber"
+        placeholder="Contact Number"
+        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500"
+        onChange={handleChange}
+        required
+      />
+    </div>
+
+    <button
+      type="submit"
+      className="w-full px-4 py-2 font-bold text-white transition bg-blue-500 rounded-lg hover:bg-blue-600"
+    >
+      Signup
+    </button>
+  </form>
+</div>
+
+  );
 };
 
 export default Signup;
