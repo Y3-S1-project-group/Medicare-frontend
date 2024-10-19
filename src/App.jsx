@@ -14,6 +14,7 @@ import Shift from './pages/Shift/Shift';
 import BookAppointment from './pages/AppointmentSystem/BookAppointment';
 import PaymentGate from './pages/AppointmentSystem/PaymentGate';
 import ViewAppoinments from './pages/AppointmentSystem/ViewAppoinments';
+import UserHome from './pages/AppointmentSystem/UserHome';
 
 //User Management
 import Login from './pages/UserManagement/Login';
@@ -21,7 +22,7 @@ import AdminDashboard from './pages/UserManagement/AdminDashboard';
 import DoctorDashboard from './pages/UserManagement/DoctorDashboard';
 import NurseDashboard from './pages/UserManagement/NurseDashboard';
 import PatientDashboard from './pages/UserManagement/PatientDashboard';
-import PrivateRoute from './components/PrivateRoute';
+// import PrivateRoute from './components/PrivateRoute';
 import Signup from './pages/UserManagement/Signup';
 
 function App() {
@@ -45,8 +46,10 @@ function App() {
 
         <Route path="/signup" element={<Signup />} />
 
+        <Route path="/Home" name="Home" element={<UserHome/>} />
+
         {/* Protected routes */}
-        <Route 
+        {/* <Route 
           path="/admin" 
           element={
             <PrivateRoute role={role} allowedRoles={['admin']}>
@@ -77,7 +80,7 @@ function App() {
               <PatientDashboard />
             </PrivateRoute>
           } 
-        />
+        /> */}
 
         {/* Redirect any other path to login */}
         <Route path="*" element={<Navigate to="/" />} />
