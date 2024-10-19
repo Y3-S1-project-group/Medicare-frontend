@@ -18,7 +18,7 @@ const PatientLogin = () => {
       if (response.status === 200) {
         console.log("Login successful:", response.data);
 
-        navigate("/");
+        navigate("/Home");
       } else {
         setError("Login failed");
       }
