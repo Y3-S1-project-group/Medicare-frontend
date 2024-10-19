@@ -1,3 +1,27 @@
+/**
+ * This component, `AddStaffMember`, is a React functional component that provides a form
+ * for adding a new staff member. It includes the following functionalities:
+ * 
+ * - State Management:
+ *   - `isModalOpen`: A boolean state to control the visibility of the modal.
+ *   - `formData`: An object state to store the form input values.
+ *   - `errors`: An object state to store validation error messages.
+ * 
+ * - Event Handlers:
+ *   - `handleShowModal`: Opens the modal by setting `isModalOpen` to true.
+ *   - `handleCloseModal`: Closes the modal, resets the form data and errors.
+ *   - `handleChange`: Updates the form data state when an input field changes.
+ *   - `handleFileChange`: Updates the form data state when a file input changes.
+ *   - `validateForm`: Validates the form data and sets error messages if any field is invalid.
+ *   - `handleSubmit`: Handles form submission, validates the form, and sends a POST request to the server.
+ * 
+ * - JSX Structure:
+ *   - A button to open the modal.
+ *   - A modal containing the form with various input fields for staff details.
+ *   - Error messages displayed next to the respective input fields if validation fails.
+ *   - Submit and cancel buttons to handle form submission and modal closing.
+ */
+
 import React, { useState } from "react";
 import axios from "axios";
 import "../../../Styles/StaffMemberCSS/addStaffMember.css"; 
