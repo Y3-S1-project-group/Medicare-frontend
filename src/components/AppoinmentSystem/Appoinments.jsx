@@ -39,7 +39,7 @@ const PersonalProfile = () => {
 
   return (
     
-    <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md relative overflow-hidden mt-5 ml-72"> {/* Increased width here */}
+    <div className="relative max-w-4xl p-6 mx-auto mt-5 overflow-hidden bg-white rounded-lg shadow-md ml-72"> {/* Increased width here */}
       {/* Background pattern */}
       <div className="absolute inset-0 z-0">
         <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
@@ -52,42 +52,42 @@ const PersonalProfile = () => {
 
       {/* Content */}
       <div className="relative z-10">
-        <h2 className="text-center text-xl font-bold mb-4 text-black">Personal Details</h2>
+        <h2 className="mb-4 text-xl font-bold text-center text-black">Personal Details</h2>
 
         <div className="flex justify-center mb-4">
-          <div className="w-24 h-24 bg-gray-300 rounded-full flex items-center justify-center">
+          <div className="flex items-center justify-center w-24 h-24 bg-gray-300 rounded-full">
             <User size={48} className="text-gray-700" />
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4 mb-4 text-lg">
           <div>
-            <p><span className="font-semibold">Name:</span> Lahiru Theekshana</p>
-            <p><span className="font-semibold">Address:</span> Wallawa, Kurunegala</p>
-            <p><span className="font-semibold">NIC:</span> 200012349801</p>
+            <p><span className="font-semibold">Name:</span> Nipun Jayasinghe</p>
+            <p><span className="font-semibold">Address:</span> Minuwangoda</p>
+            <p><span className="font-semibold">NIC:</span> 200036201281</p>
           </div>
           <div>
-            <p><span className="font-semibold">Mobile Number:</span> 0771234567</p>
+            <p><span className="font-semibold">Mobile Number:</span> 0704435850</p>
             <p><span className="font-semibold">Age:</span> 24 Years</p>
           </div>
         </div>
 
-        <h3 className="text-center text-2xl font-bold mb-4">My Appointments</h3>
+        <h3 className="mb-4 text-2xl font-bold text-center">My Appointments</h3>
 
         {/* Display appointments dynamically */}
         <div className="grid grid-cols-2 gap-4">
           {appointments.length > 0 ? (
             appointments.map((appointment, index) => (
-              <div key={appointment._id} className="bg-gray-200 p-4 rounded-lg shadow-sm relative text-left">
-                <p className="font-bold text-center mb-2 text-xl">Appointment {index + 1}</p>
-                <p><span className="font-semibold text-lg ml-5">Name:</span> {appointment.fullName}</p>
-                <p><span className="font-semibold text-lg ml-5">Email:</span> {appointment.email}</p>
-                <p><span className="font-semibold text-lg ml-5">Doctor:</span> {appointment.doctor}</p>
-                <p><span className="font-semibold text-lg ml-5">Date:</span> {new Date(appointment.date).toLocaleDateString()}</p>
-                <p><span className="font-semibold text-lg ml-5">Time:</span> {appointment.time}</p>
+              <div key={appointment._id} className="relative p-4 text-left bg-gray-200 rounded-lg shadow-sm">
+                <p className="mb-2 text-xl font-bold text-center">Appointment {index + 1}</p>
+                <p><span className="ml-5 text-lg font-semibold">Name:</span> {appointment.fullName}</p>
+                <p><span className="ml-5 text-lg font-semibold">Email:</span> {appointment.email}</p>
+                <p><span className="ml-5 text-lg font-semibold">Doctor:</span> {appointment.doctor}</p>
+                <p><span className="ml-5 text-lg font-semibold">Date:</span> {new Date(appointment.date).toLocaleDateString()}</p>
+                <p><span className="ml-5 text-lg font-semibold">Time:</span> {appointment.time}</p>
 
                 {/* Delete Icon */}
-                <div className="absolute top-2 right-2 cursor-pointer text-red-500" onClick={() => handleDelete(appointment._id)}>
+                <div className="absolute text-red-500 cursor-pointer top-2 right-2" onClick={() => handleDelete(appointment._id)}>
                   <Trash size={20} />
                 </div>
               </div>

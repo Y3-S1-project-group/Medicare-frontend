@@ -1,7 +1,24 @@
+/**
+ * VerifyOTP component handles the OTP verification process for user authentication.
+ * 
+ * This component:
+ * - Manages OTP input state and handles form submission for OTP verification.
+ * - Displays success or error messages based on the OTP verification response.
+ * - Provides functionality to resend OTP if the user did not receive it.
+ * - Navigates to the reset password page upon successful OTP verification.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <VerifyOTP />
+ * )
+ */
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { patientVerifyOtp } from "../../Services/patientService";
+
 
 const VerifyOTP = () => {
   const navigate = useNavigate();
