@@ -1,3 +1,17 @@
+/**
+ * ResetPassword component allows users to reset their password.
+ * 
+ * This component:
+ * - Uses React hooks to manage state for new password, repeat password, message, and error.
+ * - Retrieves a hash from the URL parameters using `useParams`.
+ * - Navigates to the login page upon successful password reset using `useNavigate`.
+ * - Validates that the new password and repeat password match.
+ * - Sends a password reset request to the server via `patientResetPassword`.
+ * - Displays success or error messages based on the server response.
+ * - Renders a form for users to input and confirm their new password.
+ * - Ensures the form is only displayed if the hash matches a value stored in localStorage.
+ */
+
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";

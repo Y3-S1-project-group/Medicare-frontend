@@ -1,3 +1,20 @@
+/**
+ * PatientLogin component handles the login functionality for patients.
+ * 
+ * This component includes:
+ * - State management for email, password, and error messages.
+ * - A form submission handler that sends login credentials to the server.
+ * - Error handling for failed login attempts.
+ * - Navigation to the home page upon successful login.
+ * - A user interface with input fields for email and password, and links for password recovery and account signup.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <PatientLogin />
+ * )
+ */
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { patientLogin } from "../../Services/patientService";

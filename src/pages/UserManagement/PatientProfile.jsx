@@ -1,3 +1,19 @@
+/**
+ * PatientProfile component fetches and displays the profile information of a patient.
+ * 
+ * - Uses `useState` to manage the profile data and error state.
+ * - Uses `useEffect` to fetch the patient profile data when the component mounts.
+ * - Displays a loading message while the profile data is being fetched.
+ * - Displays an error message if there is an error fetching the profile data.
+ * - Displays the patient's profile information including personal details and closest person details.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <PatientProfile />
+ * )
+ */
+
 import React, { useEffect, useState } from 'react';
 import { getPatientProfile } from '../../Services/patientService';
 import SideNav from '../../components/SideNavBar/SideNavBar';

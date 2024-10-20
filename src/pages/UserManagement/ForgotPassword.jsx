@@ -1,3 +1,20 @@
+/**
+ * ForgotPassword component allows users to request a password reset link.
+ * 
+ * This component includes:
+ * - A form to input the user's email address.
+ * - State management for email, message, and error.
+ * - A function to handle the form submission, which sends a password reset request.
+ * - Navigation to the OTP verification page upon successful request.
+ * - Display of success or error messages based on the response.
+ * 
+ * @component
+ * @example
+ * return (
+ *   <ForgotPassword />
+ * )
+ */
+
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { patientForgotPassword } from "../../Services/patientService";
